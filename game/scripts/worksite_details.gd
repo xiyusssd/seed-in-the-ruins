@@ -60,7 +60,8 @@ func build():
 	match Journey.chapter:
 		0:
 			var route: Vector3=garden.nodes.landing+Vector3(0,0,1.13)
-			var pressure: Vector3=garden.nodes.spring+Vector3(0,0,.98)
+			var pressure_frame=garden.puzzle_world.get_node("W02InwardFacing")
+			var pressure: Vector3=pressure_frame.position
 			workbench(route,"water_route",2.65,"W-01")
 			garden.puzzle_world.face_console(self,route,get_children(),"W01InwardFacing")
 			var pressure_parts=get_children()
@@ -69,7 +70,7 @@ func build():
 			tube(base,base+Vector3(0,.78,0),.055,Color(.63,.68,.56,.18))
 			level_water=tube(base,base+Vector3(0,.78,0),.032,Color("86a494"))
 			for i in 7:shapes.detail(base+Vector3(-.07,i*.13,.005),Vector3(.07,.012,.012),Color("dfd4b9"),self)
-			garden.puzzle_world.face_console(self,pressure,get_children().filter(func(n):return n not in pressure_parts),"W02InwardFacing")
+			garden.puzzle_world.face_console(self,pressure,get_children().filter(func(n):return n not in pressure_parts),"W02InwardFacing",pressure_frame.rotation.y)
 			for offset in [Vector3(-.95,.026,-.55),Vector3(.84,.026,.35)]:puddle(garden.nodes.altar+offset,Vector2(.6,.38))
 		1:
 			workbench(garden.nodes.landing+Vector3(0,0,1.2),"power",2.65,"S-01")

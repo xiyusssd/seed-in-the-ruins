@@ -1,6 +1,8 @@
 # 废墟里的种子 · 找回世界的颜色
 
-**Seed in the Ruins / 1.13.1：路边残碑与通路比例修正 · 第一人称 · 治愈废土**
+**Seed in the Ruins / 1.14.0：结构、光影与探索移动 · 第一人称 · 治愈废土**
+
+1.14.0补上旋转桥底部钢梁与升降井上层检修支撑，残碑和柜体加入实体碰撞，水压柜移到平台东侧，让过桥入口保持通畅。平台按实际地面尺寸开放，斜向走到边缘时沿可行方向滑行；鼠标灵敏度可调，准星对准可操作目标时出现细金色圆环。调整环境光、接触阴影和锈钢反光，并修正桥面真实材质未生效的问题。详见 [1.14.0 结构、光影与探索](docs/1.14.0结构光影与探索.md)。
 
 1.13.1把六块提示残碑从约 1.9 米缩到约 1.28 米，连同碎石底座和调查区域同步缩小；入口、楼梯、升降台与桥头的碑移到通路侧边，撤掉水压碑的加高基座。刻字字号重新配合小碑面，E 阅读全文与 Tab 归档继续保留。详见 [1.13.1 残碑比例与通路](docs/1.13.1残碑比例与通路.md)。修改和验收都在后台进行，不自动打开试玩窗口。
 
@@ -39,12 +41,12 @@
 
 ## 试玩
 
-当前试玩版：`builds/SeedInTheRuins-1.13.1.app`。双击「启动游戏.command」优先打开此版，原 v4 存档可继续。
+当前试玩版：`builds/SeedInTheRuins-1.14.0.app`。双击「启动游戏.command」优先打开此版，原 v4 存档可继续。打包文件保存在本地 `builds/`，GitHub 仓库包含源码、素材与测试。
 
 1.12.2 的第二关板面修复已包含在当前版本中：模块架与 S-01 电源柜朝向平台内侧，插槽图案、已装模块与维修状态可直接看到；移开遮挡第一插槽的结果石碑。详见 [第二关板面可读性](docs/1.12.2第二关板面可读性.md)。
 
-macOS：直接打开 `builds/SeedInTheRuins-1.13.1.app`，或解压 `builds/SeedInTheRuins-1.13.1-macOS.zip` 后打开应用；也可将应用拖入 Applications。无需安装 Godot 或 Python。已经打开的旧窗口不会自动更新。
-Windows：解压 `builds/SeedInTheRuins-Windows.zip` 后双击 exe。Windows 包已交叉导出，仍待实机验证。
+macOS：直接打开 `builds/SeedInTheRuins-1.14.0.app`，或解压 `builds/SeedInTheRuins-1.14.0-macOS.zip` 后打开应用；也可将应用拖入 Applications。无需安装 Godot 或 Python。已经打开的旧窗口不会自动更新。
+Windows：本地历史试玩包为 `builds/SeedInTheRuins-Windows.zip`，解压后双击 exe；此包未随 1.14.0 更新，仍待实机验证。
 
 安装说明见 [安装与操作](docs/安装与操作.md)，真实工具使用情况见 [工具赛道](docs/工具赛道.md)。
 
@@ -143,11 +145,14 @@ Windows：解压 `builds/SeedInTheRuins-Windows.zip` 后双击 exe。Windows 包
 - Godot4.5 Forward+ / Compatibility；入口`game/project.godot`，场景`game/garden.tscn`。
 - `garden.gd`：三维场景、机关、交互、整体恢复色彩；`ruins_walker.gd`：第一人称控制和连续行走；`garden_ui.gd`：界面；`journey.gd`：v4存档。
 
+克隆源码后安装 Godot 4.5；本地 `.tools/Godot.app` 不随源码提交。可在 Godot 中导入 `game/project.godot` 运行。完整后台功能验证使用 Python 3 和 Godot 可执行文件：
+
 ```sh
-.tools/Godot.app/Contents/MacOS/Godot --headless --path game res://tests/fps_flow.tscn -- --garden-test
-.tools/Godot.app/Contents/MacOS/Godot --path game --write-movie ../builds/garden-walkthrough.avi --fixed-fps 24 --disable-vsync -- --garden-film
-python3 tools/make_ruins_audio.py
+godot --headless --editor --path game --import --quit
+python3 tools/run_later_visibility_checks.py --engine /path/to/godot --version 1.14.0
 ```
+
+GitHub Actions 执行相同的 16 组测试并保留日志。测试使用独立存档；画面验证必须使用隔离显示或离屏位置，并传入 `--offscreen-capture`，详见 `AGENTS.md`。
 
 新存档为`user://ruins-first-person-v4.json`，保留v1/v2/v3存档。验证使用独立存档，纪念卡存至系统文档目录SeedInTheRuins。第一、二版文档和材料包分别保留在docs/v1、docs/v2和builds/v1、builds/v2。旧版测试不作为第三版通过的证据。
 

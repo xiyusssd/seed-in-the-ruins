@@ -176,7 +176,10 @@ func _ready():
 	reticle.set_anchors_and_offsets_preset(Control.PRESET_CENTER)
 	reticle.offset_left=-2;reticle.offset_right=2;reticle.offset_top=-2;reticle.offset_bottom=2
 	reticle.mouse_filter=Control.MOUSE_FILTER_IGNORE
-	reticle.draw.connect(func():reticle.draw_circle(Vector2(2,2),2,Color("eee3c8")))
+	reticle.draw.connect(func():
+		reticle.draw_circle(Vector2(2,2),2,Color("eee3c8"))
+		if garden.valid_nearby_target(garden.hovered):reticle.draw_arc(Vector2(2,2),6,0,TAU,24,BRASS,1.3,true)
+	)
 	hud.add_child(reticle)
 	menu_icon=Button.new()
 	menu_icon.name="MenuIcon"
@@ -211,6 +214,7 @@ func _process(_delta):
 	hud.visible = garden.playing and not panel_open() and not (garden.repair_focus and garden.repair_focus.active)
 	reticle.visible=garden.first_person and not garden.busy
 	reticle.modulate.a=.9 if is_instance_valid(garden.hovered) else .45
+	reticle.queue_redraw()
 
 func make_label(text: String, size = 18, color = INK) -> Label:
 	var label = Label.new()
@@ -571,7 +575,7 @@ func companion_menu():
 	content.add_child(button("先不用，回到庭院",close_panel))
 
 func settings_menu():
-	panel("让旅程舒服一点","声音与画面","settings")
+	panel("让旅程舒服一点","操作、声音与画面","settings")
 	content.add_theme_constant_override("separation",8)
 	var video_row=HBoxContainer.new();video_row.add_theme_constant_override("separation",8);content.add_child(video_row)
 	var frame_button=button("",func():Settings.cycle_fps();settings_menu())
@@ -581,14 +585,23 @@ func settings_menu():
 	var sync_button=button("垂直同步："+("开启" if Settings.vsync else "关闭"),func():Settings.vsync=not Settings.vsync;Settings.apply_video();Settings.save();settings_menu())
 	sync_button.size_flags_horizontal=Control.SIZE_EXPAND_FILL;video_row.add_child(sync_button)
 	prose("高刷新率屏幕可选择120或144帧；实际帧率取决于画面和设备。",14,MUTED)
+	var mouse_row=HBoxContainer.new();mouse_row.add_theme_constant_override("separation",12);content.add_child(mouse_row)
+	mouse_row.add_child(make_label("鼠标灵敏度",16))
+	var sensitivity=HSlider.new();sensitivity.name="MouseSensitivity"
+	sensitivity.min_value=.5;sensitivity.max_value=2.0;sensitivity.step=.05;sensitivity.value=Settings.mouse_sensitivity
+	sensitivity.size_flags_horizontal=Control.SIZE_EXPAND_FILL;sensitivity.custom_minimum_size=Vector2(160,25)
+	sensitivity.value_changed.connect(func(value):Settings.mouse_sensitivity=value;Settings.save())
+	mouse_row.add_child(sensitivity)
 	for pair in [["音乐","music"],["音效","effects"],["环境","ambience"]]:
 		var key: String = pair[1]
-		prose(pair[0],18)
+		var row=HBoxContainer.new();row.add_theme_constant_override("separation",12);content.add_child(row)
+		var caption=make_label(pair[0],18);caption.custom_minimum_size.x=90;row.add_child(caption)
 		var slider=HSlider.new()
 		slider.min_value=0;slider.max_value=1;slider.step=.05;slider.value=Settings.get(key)
 		slider.custom_minimum_size=Vector2(280,25)
+		slider.size_flags_horizontal=Control.SIZE_EXPAND_FILL
 		slider.value_changed.connect(func(value):Settings.set(key,value);Settings.apply_audio();Settings.save())
-		content.add_child(slider)
+		row.add_child(slider)
 	var current = "高画质" if RenderingServer.get_current_rendering_method()=="forward_plus" else "兼容画质"
 	prose("当前："+current+"
 切换画质会保存旅程并重启游戏。",16,MUTED)

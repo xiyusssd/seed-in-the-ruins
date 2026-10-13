@@ -46,6 +46,7 @@ func label(p: Vector3, text: String, size = 22) -> Label3D:
 	return n
 func cabinet(p: Vector3, title: String, width = 2.65):
 	var casing=shapes.rounded_detail(p+Vector3(0,.65,-.15),Vector3(width,1.25,.34),Color("627b77"),.075)
+	casing.create_trimesh_collision()
 	var enamel=ShaderMaterial.new();enamel.shader=preload("res://shaders/worn_enamel.gdshader")
 	enamel.set_shader_parameter("paint_color",Color("627b77"))
 	casing.material_override=enamel
@@ -152,14 +153,14 @@ func water():
 	# The operator stands on the landing, not beyond its seaward edge.
 	face_console(self,p,get_children().filter(func(n):return n not in console_parts)+garden.pickables.slice(first_pick),"W01InwardFacing")
 	note(garden.nodes.arrival+Vector3(-1.05,0,1.08),"route",garden.nodes.arrival+Vector3(-.45,0,.45))
-	p = garden.nodes.spring+Vector3(0,0,.98)
+	p = garden.nodes.spring+Vector3(1.25,0,.20)
 	console_parts=get_children();first_pick=garden.pickables.size()
 	cabinet(p,"W-02",1.9)
 	for i in 2:
 		control(p+Vector3(-.5+i,.7,.17),"调整"+("入水阀" if i==0 else "回流阀"),"valve",i,"valves")
 		labels["valves"+str(i)] = label(p+Vector3(-.5+i,.35,.28),"",18)
 	labels.gauge=label(p+Vector3(0,1.13,.21),"水位 0 / 目标 Ⅲ",19)
-	face_console(self,p,get_children().filter(func(n):return n not in console_parts)+garden.pickables.slice(first_pick),"W02InwardFacing")
+	face_console(self,p,get_children().filter(func(n):return n not in console_parts)+garden.pickables.slice(first_pick),"W02InwardFacing",-PI/2)
 	note(garden.nodes.spring+Vector3(-1.22,0,.65),"pressure",garden.nodes.spring+Vector3(-.40,0,.30))
 	var dock = robot_dock("pump")[1]
 	shapes.detail(dock+Vector3(0,.03,0),Vector3(.6,.06,.65),Color("8b745d"))

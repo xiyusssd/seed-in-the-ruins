@@ -134,8 +134,8 @@ func build_environment():
 	environment.tonemap_mode = Environment.TONE_MAPPER_ACES if RenderingServer.get_current_rendering_method() == "forward_plus" else Environment.TONE_MAPPER_LINEAR
 	if RenderingServer.get_current_rendering_method() == "forward_plus":
 		environment.ssao_enabled = true
-		environment.ssao_radius = .55
-		environment.ssao_intensity = .85
+		environment.ssao_radius = .45
+		environment.ssao_intensity = .70
 		environment.ssil_enabled = true
 		environment.ssil_radius = 2.0
 		environment.ssil_intensity = .65
@@ -159,21 +159,22 @@ func build_environment():
 	add_child(world_env)
 	var light = DirectionalLight3D.new()
 	light.name="CoastalSun"
-	light.rotation_degrees = Vector3(-16, 148, 0)
+	light.rotation_degrees = Vector3(-22, 148, 0)
 	light.light_color = Color("ffdab0")
-	light.light_energy = 1.06
+	light.light_energy = 1.12
 	light.light_angular_distance=1.8
 	light.light_volumetric_fog_energy=.55
 	light.shadow_enabled = true
 	light.directional_shadow_max_distance = 75
 	light.shadow_bias = 0.035
-	light.shadow_normal_bias = 0.28
+	light.shadow_normal_bias = 0.18
 	light.directional_shadow_mode = DirectionalLight3D.SHADOW_PARALLEL_4_SPLITS
 	add_child(light)
 	if sky_material is ShaderMaterial:sky_material.set_shader_parameter("sun_direction", light.transform.basis.z)
 
 func build_chapter():
 	if repair_focus:repair_focus.cancel()
+	hovered=null
 	restoration=null
 	busy = false
 	moving = false
@@ -411,6 +412,15 @@ func rotary_bridge(p: Vector3, length: float):
 	s.column(Vector3(0, -0.5, 0), 0.8, 1, Shapes.STONE, rotor)
 	s.column(Vector3(0, -p.y / 2 - 0.4, 0), 0.3, p.y, Shapes.STONE, rotor)
 	s.ring(Vector3(0, 0.04, 0), 0.55, 0.1, Shapes.GOLD, rotor)
+	var frame=Node3D.new();frame.name="BridgeUnderframe";rotor.add_child(frame)
+	var steel=s.surface_pbr("rusty_metal_sheet",Color("af9c80"),.7,.28)
+	for side in [-1,1]:
+		var beam=s.detail(Vector3(0,-.47,side*.52),Vector3(length-.12,.22,.10),Shapes.STONE,frame)
+		beam.material_override=steel
+	for x in [-length*.36,0,length*.36]:
+		var rib=s.detail(Vector3(x,-.50,0),Vector3(.12,.15,1.3),Shapes.STONE,frame)
+		rib.material_override=steel
+		for side in [-1,1]:s.rust_rod(Vector3(x,-.55,side*.52),Vector3(0,-.88,side*.52),.025,frame)
 
 func water_garden():
 	point("arrival", Vector3(-7, 2.8, 5))
@@ -467,6 +477,12 @@ func sun_garden():
 		for z in [-1.1, 1.1]:
 			s.column(Vector3(x, 4.3, z), 0.1, 9, Shapes.GOLD)
 	s.arch(Vector3(-2, 7, 0.95), 2, 2.8, Shapes.PURPLE)
+	# Fixed service shelf is carried by the north cage posts, even with the lift down.
+	var shelf=s.block(nodes.lift_high+Vector3(0,-.08,-1.1),Vector3(2.4,.16,.65),Shapes.STONE)
+	shelf.name="LiftServiceShelf"
+	shelf.material_override=s.surface_pbr("rusty_metal_sheet",Color("ac9c80"),.7,.28)
+	for side in [-1,1]:
+		s.rust_rod(nodes.lift_high+Vector3(side*1.12,-1.10,-1.10),nodes.lift_high+Vector3(side*1.12,-.10,-.78),.045)
 	elevator = Node3D.new()
 	geometry.add_child(elevator)
 	elevator.position = nodes.lift_low
@@ -967,7 +983,7 @@ func set_recovery(value: float):
 	if environment:
 		environment.fog_density = lerpf(0.012, 0.0045, recovery)
 		environment.fog_light_color = Color("a1abb2").lerp(Color("aebfc7"), recovery)
-		environment.ambient_light_energy = lerpf(0.38, 0.46, recovery)
+		environment.ambient_light_energy = lerpf(0.42, 0.54, recovery)
 	for plant in recovery_plants:
 		if is_instance_valid(plant):
 			plant.scale = Vector3.ONE * float(plant.get_meta("growth_scale")) * lerpf(0.45, 1.0, recovery)
@@ -993,7 +1009,7 @@ func sync_mouse_capture():
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED if playing and first_person and ui and not ui.panel_open() and not capture else Input.MOUSE_MODE_VISIBLE
 
 func valid_nearby_target(body: Node3D) -> bool:
-	return is_instance_valid(body) and body.has_meta("action") and body.get_meta("action") != "walk" and walker.position.distance_to(body.global_position) <= 2.65
+	return is_instance_valid(body) and body.is_inside_tree() and is_instance_valid(walker) and walker.is_inside_tree() and body.has_meta("action") and body.get_meta("action") != "walk" and walker.position.distance_to(body.global_position) <= 2.65
 
 func use_nearby_target(reverse = false):
 	if not playing or busy or ui.panel_open(): return
@@ -1012,10 +1028,20 @@ func use_nearby_target(reverse = false):
 func floor_at(p: Vector3) -> float:
 	var best = INF
 	var difference = INF
+	# Use the actual platform dimensions, leaving room for the player's capsule.
+	for deck in s.decks:
+		var center: Vector3=deck.center
+		var half_size: Vector2=deck.half_size-Vector2(.24,.24)
+		if absf(p.x-center.x)<=half_size.x and absf(p.z-center.z)<=half_size.y and absf(p.y-center.y)<.9:
+			if absf(p.y-center.y)<difference:
+				best=center.y;difference=absf(p.y-center.y)
 	for id in nodes:
+		if id not in ["center","stair_top","entry_step","summit_step","lift_low","lift_high"]:continue
 		if Journey.chapter == 1 and ((id == "lift_low" and Journey.lift) or (id == "lift_high" and not Journey.lift)): continue
 		var n: Vector3 = nodes[id]
-		if Vector2(p.x-n.x,p.z-n.z).length() < (0.4 if id in ["stair_top","entry_step","summit_step"] else 0.6 if id == "center" else 1.1) and absf(p.y-n.y) < 0.9:
+		var offset=Vector2(p.x-n.x,p.z-n.z)
+		var supported=absf(offset.x)<=.96 and absf(offset.y)<=.96 if id.begins_with("lift_") else offset.length()<(0.6 if id=="center" else .4)
+		if supported and absf(p.y-n.y) < 0.9:
 			if absf(p.y-n.y) < difference:
 				best = n.y
 				difference = absf(p.y-n.y)

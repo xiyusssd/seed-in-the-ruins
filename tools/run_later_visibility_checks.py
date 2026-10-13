@@ -10,16 +10,20 @@ ENGINE = ROOT / '.tools/Godot.app/Contents/MacOS/Godot'
 SCENES = ['menu', 'fps', 'puzzle', 'playability', 'wasteland', 'scenery',
           'tutorial', 'audio_animation', 'repair_feedback', 'w01_access',
           'structural_refinement', 'maintenance_record', 'sun_console_access',
-          'later_visibility']
+          'later_visibility', 'stele_clearance', 'exploration']
 results = {}
 parser=argparse.ArgumentParser()
-parser.add_argument('--version',default='1.12.3')
-version=parser.parse_args().version
+parser.add_argument('--version',default='1.14.0')
+parser.add_argument('--engine',type=Path,default=ENGINE)
+args=parser.parse_args()
+version=args.version
+ENGINE=args.engine.resolve()
+(ROOT/'builds').mkdir(exist_ok=True)
 prefix='v'+version.replace('.','')
 for name in SCENES:
     output = ROOT / 'builds' / f'{prefix}-{name}-tests.log'
     with output.open('w') as log:
-        subprocess.run([str(ENGINE), '--headless', '--path', str(ROOT / 'game'),
+        subprocess.run([str(ENGINE), '--headless', '--audio-driver', 'Dummy', '--path', str(ROOT / 'game'),
                         f'res://tests/{name}_flow.tscn'], stdout=log,
                        stderr=subprocess.STDOUT, check=True, timeout=240)
     content = output.read_text()

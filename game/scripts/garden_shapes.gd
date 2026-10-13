@@ -11,6 +11,7 @@ var stone_normal: NoiseTexture2D
 var bevel_meshes: Dictionary = {}
 var architectural_materials: Dictionary = {}
 var parent: Node3D
+var decks: Array[Dictionary] = []
 
 func _init(p: Node3D):
 	parent = p
@@ -181,6 +182,7 @@ func detail(p: Vector3, size: Vector3, color: Color, target: Node3D = null) -> M
 	return n
 
 func deck(p: Vector3, width: float, depth: float, color = IVORY):
+	decks.append({"center":p,"half_size":Vector2(width,depth)*.5})
 	block(p - Vector3(0, 0.18, 0), Vector3(width, 0.36, depth), color)
 	block(p - Vector3(0, 0.41, 0), Vector3(width + 0.18, 0.12, depth + 0.18), STONE)
 	# Thin inlaid joints make paving legible from eye height without obstructing paths.
@@ -205,6 +207,7 @@ func bridge(a: Vector3, b: Vector3, width = 1.35, target: Node3D = null, accent 
 	platform.rotation.x = -atan2(b.y-a.y,Vector2(b.x-a.x,b.z-a.z).length())
 	block(Vector3(0, -0.20, 0), Vector3(width, 0.36, length), IVORY, platform)
 	var tread=block(Vector3(0, 0.008, 0), Vector3(width * 0.55, 0.015, length), accent, platform)
+	tread.set_meta("bridge_tread",true)
 	tread.cast_shadow=GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
 	for side in [-1, 1]:
 		block(Vector3(side * (width / 2 - 0.045), 0.055, 0), Vector3(0.07, 0.11, length), STONE, platform)

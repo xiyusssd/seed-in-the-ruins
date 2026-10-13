@@ -23,7 +23,7 @@ void fragment(){
  float det=dot(dx,rx);
  vec3 gradient=sign(det)*(dFdx(height)*rx+dFdy(height)*ry);
  NORMAL=normalize(max(abs(det),0.000001)*n-gradient);
- ROUGHNESS=metal_surface ? .72+chips*.18 : .93;
+ ROUGHNESS=metal_surface ? .64+chips*.28 : .93;
  METALLIC=metal_surface ? .26*(1.0-chips*.75) : 0.0;
  SPECULAR=.32;
 }

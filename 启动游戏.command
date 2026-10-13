@@ -1,7 +1,9 @@
 #!/bin/zsh
 set -eu
 cd "${0:A:h}"
-if [[ -d builds/SeedInTheRuins-1.13.1.app ]]; then
+if [[ -d builds/SeedInTheRuins-1.14.0.app ]]; then
+  open -n builds/SeedInTheRuins-1.14.0.app
+elif [[ -d builds/SeedInTheRuins-1.13.1.app ]]; then
   open -n builds/SeedInTheRuins-1.13.1.app
 elif [[ -d builds/SeedInTheRuins-1.13.0.app ]]; then
   open -n builds/SeedInTheRuins-1.13.0.app

@@ -33,11 +33,21 @@ func move_direction(axis: Vector2, delta: float, fast = false):
 	var before=position
 	var ground: float = garden.floor_at(candidate)
 	if is_inf(ground):
-		velocity = Vector3.ZERO
-		return
+		# Keep the supported part of diagonal movement when the other axis reaches an edge.
+		var axes=[Vector3(direction.x,0,0),Vector3(0,0,direction.z)]
+		if absf(direction.z)>absf(direction.x):axes.reverse()
+		for axis_direction in axes:
+			if axis_direction.length_squared()<.0001:continue
+			var supported=garden.floor_at(position+axis_direction*speed*delta)
+			if not is_inf(supported):direction=axis_direction;ground=supported;break
+		if is_inf(ground):velocity=Vector3.ZERO;return
 	position.y = ground + 0.055
 	velocity = direction * speed
 	move_and_slide()
+	# Collision correction must not push the capsule beyond a supported platform.
+	if is_inf(garden.floor_at(position)):
+		position = before
+		velocity = Vector3.ZERO
 	garden.avatar.position = position
 	if Vector2(position.x-before.x,position.z-before.z).length() > .001:
 		stride += delta * (12 if fast else 9)
@@ -49,8 +59,8 @@ func move_direction(axis: Vector2, delta: float, fast = false):
 
 func look(relative: Vector2):
 	if garden and garden.tutorial and relative.length()>4 and garden.playing and not garden.ui.panel_open():garden.tutorial.learn("look")
-	yaw -= relative.x * 0.0022
-	pitch = clampf(pitch - relative.y * 0.0022, -1.4, 1.4)
+	yaw -= relative.x * 0.0022 * Settings.mouse_sensitivity
+	pitch = clampf(pitch - relative.y * 0.0022 * Settings.mouse_sensitivity, -1.4, 1.4)
 
 func eye_position() -> Vector3:
 	return global_position + Vector3(0, 1.65 + sin(stride) * 0.012, 0)

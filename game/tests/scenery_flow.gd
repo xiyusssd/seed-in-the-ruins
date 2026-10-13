@@ -4,6 +4,14 @@ var failures=[]
 func check(value: bool,message: String):
 	checks+=1
 	if not value:failures.append(message);push_error(message)
+func check_texture_asset(folder: String,item: Dictionary):
+	var path="res://assets/"+folder+"/"+item.file
+	if OS.has_feature("editor"):
+		check(FileAccess.get_sha256(path)==item.sha256,"Authored texture checksum matches "+item.file)
+	else:
+		# Export replaces source PNGs with imported texture resources.
+		var texture=load(path)
+		check(texture is Texture2D and texture.get_width()==int(item["size"][0]) and texture.get_height()==int(item["size"][1]) and not texture.get_image().is_empty(),"Exported texture loads at full resolution: "+item.file)
 func _ready():run.call_deferred()
 func run():
 	Journey.save_path="user://scenery-suite.json";Journey.fresh()
@@ -44,7 +52,7 @@ func run():
 	check(plaster.normal_enabled and plaster.uv1_world_triplanar and plaster.roughness_texture_channel==BaseMaterial3D.TEXTURE_CHANNEL_RED,"Generated plaster uses world-scale native PBR sampling and scalar roughness")
 	var manifest=JSON.parse_string(FileAccess.get_file_as_string("res://assets/generated_materials/SOURCES.json"))
 	for item in manifest.assets:
-		check(FileAccess.get_sha256("res://assets/generated_materials/"+item.file)==item.sha256,"Generated source checksum matches "+item.file)
+		check_texture_asset("generated_materials",item)
 	for asset in ["wood_planks_dirt","brown_mud_02","rusty_metal_sheet"]:
 		var surface=garden.s.surface_pbr(asset,Color.WHITE,.6)
 		check(surface.albedo_texture and surface.normal_texture and surface.roughness_texture,"Dedicated "+asset+" surface has all three maps")
@@ -89,10 +97,10 @@ func run():
 	check(garden.ui.content.get_children().filter(func(n):return n is Button).all(func(n):return n.get_theme_font("font")==garden.ui.TITLE_FONT),"Menu controls consistently use the industrial display typeface")
 	var city_manifest=JSON.parse_string(FileAccess.get_file_as_string("res://assets/generated_city/SOURCES.json"))
 	for item in city_manifest.assets:
-		check(FileAccess.get_sha256("res://assets/generated_city/"+item.file)==item.sha256,"City material checksum matches "+item.file)
+		check_texture_asset("generated_city",item)
 	var garden_manifest=JSON.parse_string(FileAccess.get_file_as_string("res://assets/generated_garden/SOURCES.json"))
 	for item in garden_manifest.assets:
-		check(FileAccess.get_sha256("res://assets/generated_garden/"+item.file)==item.sha256,"Garden material checksum matches "+item.file)
+		check_texture_asset("generated_garden",item)
 	for chapter_id in 3:
 		if chapter_id>0:Journey.chapter=chapter_id;garden.build_chapter();await get_tree().physics_frame
 		var city=garden.geometry.find_child("CinematicRuins",true,false)

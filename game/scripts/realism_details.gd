@@ -10,9 +10,9 @@ var leaves: Array[Transform3D]=[]
 func _init(city: RefCounted):
 	c=city;s=c.s;root=c.root;rng.seed=11300+Journey.chapter
 func build():
-	if Journey.chapter<2 and is_instance_valid(c.garden.rotor):
+	if is_instance_valid(c.garden.rotor):
 		for mesh in c.garden.rotor.find_children("*","MeshInstance3D",true,false):
-			if mesh.mesh is BoxMesh and is_equal_approx(mesh.mesh.size.y,.015):mesh.material_override=c.metal_material
+			if mesh.get_meta("bridge_tread",false):mesh.material_override=c.metal_material
 	if Journey.chapter==1:
 		for mesh in c.garden.elevator.find_children("*","MeshInstance3D",true,false):
 			if mesh.mesh.get_aabb().size.y>.2:mesh.material_override=c.metal_material

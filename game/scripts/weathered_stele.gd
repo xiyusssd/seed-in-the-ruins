@@ -22,6 +22,7 @@ func build(board: Node3D,shapes: RefCounted,key: String):
 	for i in outline.size():
 		outline[i]+=Vector2(rng.randf_range(-.018,.018),rng.randf_range(-.018,.018))
 	var slab=fragment("BrokenInscriptionStone",outline,.128,-.18)
+	slab.create_trimesh_collision()
 	slab.set_meta("broken_outline",outline)
 	# Fallen chips and a split base replace the clean metal clipboard stand.
 	fragment("SplitStoneFoot",PackedVector2Array([Vector2(-.70,.015),Vector2(.70,0),Vector2(.67,.16),Vector2(.12,.22),Vector2(-.64,.18)]),.21,-.26)

@@ -13,7 +13,6 @@ func run():
 	for c in 3:
 		Journey.chapter=c;Journey.node_id=["landing","sun","landing"][c];Journey.fps_valid=false;Journey.bridge=1 if c!=1 else 0;Journey.lift=c==1
 		garden.build_chapter();garden.playing=true;garden.ui.close_panel();garden.on_puzzle_update()
-		garden.get_window().grab_focus()
 		var start=Time.get_ticks_usec();var previous=start;var ms=[]
 		var previous_draw=Engine.get_frames_drawn();var drawn=0
 		while Time.get_ticks_usec()-start<33000000:
