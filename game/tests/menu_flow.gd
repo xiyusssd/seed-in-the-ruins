@@ -21,6 +21,7 @@ func centered(ui) -> bool:
 func _ready():run.call_deferred()
 func run():
 	Journey.save_path="user://menu-suite-v4.json";Journey.fresh()
+	Settings.path="user://menu-suite-settings.json";Settings.story_seen=true
 	var garden=load("res://garden.tscn").instantiate();add_child(garden)
 	await settle()
 	var ui=garden.ui
