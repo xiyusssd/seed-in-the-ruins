@@ -23,11 +23,13 @@ prefix='v'+version.replace('.','')
 for name in SCENES:
     output = ROOT / 'builds' / f'{prefix}-{name}-tests.log'
     with output.open('w') as log:
-        subprocess.run([str(ENGINE), '--headless', '--audio-driver', 'Dummy', '--path', str(ROOT / 'game'),
-                        f'res://tests/{name}_flow.tscn'], stdout=log,
-                       stderr=subprocess.STDOUT, check=True, timeout=240)
+        completed = subprocess.run([str(ENGINE), '--headless', '--audio-driver', 'Dummy', '--path', str(ROOT / 'game'),
+                        f'res://tests/{name}_flow.tscn', '--', '--garden-test'], stdout=log,
+                       stderr=subprocess.STDOUT, timeout=240)
     content = output.read_text()
-    assert 'failures=[]' in content and 'ERROR:' not in content, output
+    if completed.returncode or 'failures=[]' not in content or 'ERROR:' in content:
+        print(content, flush=True)
+        raise RuntimeError(f'{name} failed: {output}')
     results[name] = int(re.findall(r'(\d+) checks; failures=\[\]', content)[-1])
     print(name, results[name], flush=True)
 summary = {'version': version, 'suites': results,
