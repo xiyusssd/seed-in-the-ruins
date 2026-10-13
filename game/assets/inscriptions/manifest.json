@@ -1,0 +1,74 @@
+{
+  "version": "1.13.1",
+  "font": "Noto Serif SC, weight 600, bundled OFL font",
+  "font_sha256": "050080d9255a86808f2945bffac582b31ef32bc36411ce29563b4961670c66f9",
+  "method": "Original text rasterization; cutting variation, erosion, scalar engraving depth",
+  "assets": {
+    "route": {
+      "code": "W-01 / 水路",
+      "title": "滤池维护图",
+      "body": "先过滤，再蓄水，最后回流。\n泵站出口：东 →\n蓄水槽入口：西 ←\n回流口：南 ↓\n接头箭头表示出口方向。",
+      "sha256": "7d1665486aa0398b90870d9a33612aa5534c64b28829f0c59881c435f17f60cc",
+      "remaining_stroke_mass": 0.8060062392184542,
+      "dimensions": [
+        1024,
+        1014
+      ]
+    },
+    "pressure": {
+      "code": "W-02 / 水压",
+      "title": "滤池检修单",
+      "body": "净水位停在 Ⅲ 线。\n回流刻痕：Ⅰ，保持慢流。\n进水每档 +2 格\n回流每档 −1 格\n先定回流，再推算进水。",
+      "sha256": "9064c8a2d533b52e00fb6c81a6c8d8681f5ea22ce3a90fed5c3723c7551f20a0",
+      "remaining_stroke_mass": 0.8107387112411706,
+      "dimensions": [
+        1024,
+        1014
+      ]
+    },
+    "power": {
+      "code": "S-01 / 电源",
+      "title": "电源柜铭牌",
+      "body": "插槽从左至右：\n□ 方形　○ 圆形　△ 三角\n模块按外形匹配插槽。\n装好模块，再检查升降机。\n不要只凭颜色辨认。",
+      "sha256": "83cfbfa3dd9b609dfa97a0ad7871eff16cb6b7f8ab42628ce0fa38b1b5fe54f7",
+      "remaining_stroke_mass": 0.8139991267070148,
+      "dimensions": [
+        1024,
+        1014
+      ]
+    },
+    "mirrors": {
+      "code": "M-01 / 日光",
+      "title": "日光传递图",
+      "body": "第一束光 → 锈铜中继板\n第二束光 → 育苗工作台\n零档北；顺时针东、南、西。\n沿光束检查镜子的出口。\n请芽芽保持镜架制动。",
+      "sha256": "0c29ca8479a8abeb353734bf00da68385acd014809426d8c9d8f7fd39911e8d5",
+      "remaining_stroke_mass": 0.8097939730425231,
+      "dimensions": [
+        1024,
+        1014
+      ]
+    },
+    "beds": {
+      "code": "G-01 / 种植",
+      "title": "写给后来者的种植记录",
+      "body": "西床：花卉，水量 Ⅰ\n东床：豆科，水量 Ⅱ\n北床：深根，水量 Ⅲ\n花卉留客，豆科养土。\n深根植物把水留下。",
+      "sha256": "8ae0b64995f38fd58c9b283d91497429b2e57c7f4a10007d35f78033463ce280",
+      "remaining_stroke_mass": 0.8091792734435129,
+      "dimensions": [
+        1024,
+        1014
+      ]
+    },
+    "roots": {
+      "code": "L-03 / 风塔",
+      "title": "风塔双环图",
+      "body": "左接头朝南 ↓\n右接头朝东 →\n零档北；顺时针东、南、西。\n请芽芽从工具架运来储能。\n根系、储能到位再启动。",
+      "sha256": "7bbe1cb7a164f3d7a478aa2227d1ff392c9110c1853102bd0d3c6d60c3e36ae4",
+      "remaining_stroke_mass": 0.8124161113065993,
+      "dimensions": [
+        1024,
+        1014
+      ]
+    }
+  }
+}

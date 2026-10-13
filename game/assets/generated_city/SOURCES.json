@@ -1,0 +1,74 @@
+{
+  "version": "1.9.0",
+  "tool": "built-in image_gen.imagegen",
+  "assets": [
+    {
+      "file": "city_plaster_albedo.png",
+      "source": "/Users/xiyu/.codex/generated_images/01a1264f-63e1-7a51-9f33-c3ff88ba8a25/exec-67d2b3c8-ea59-4659-b464-e5384e9bc9f1.png",
+      "prompt": "Use case: photorealistic-natural. Asset type: square seamless ALBEDO texture for a physically based 3D coastal ruined town, a 2.5 metre patch of wall. Create only a perfectly flat orthographic material texture: pale warm gray ivory lime plaster heavily weathered by decades of sea salt, restrained peeling layers revealing small muted warm stone and red-brown masonry fragments, thin gray runoff streaks, tiny surface fissures, subtle old green algae mostly in scattered low-contrast patches. Grounded cinematic abandoned Mediterranean pumping-station realism. 65 percent intact plaster, fine granular detail, naturally varied medium/light values, no large black holes. Perfect neutral diffuse flat illumination, no shadows, no reflections, no perspective, no objects, no text or symbols, no frames, no baked lighting or directional occlusion. Seamlessly tileable on all four edges. One square single material, high resolution.",
+      "size": [
+        1254,
+        1254
+      ],
+      "sha256": "2cbee3e69e8ee475965737c6ed2d79bf739fd8377348b85bb8d9eff37b834652"
+    },
+    {
+      "file": "quay_stone_albedo.png",
+      "source": "/Users/xiyu/.codex/generated_images/01a1264f-63e1-7a51-9f33-c3ff88ba8a25/exec-93377a45-2fac-4da8-9568-e9dacb5cf326.png",
+      "prompt": "Use case: photorealistic-natural. Asset type: square seamless ALBEDO texture for physically based 3D game coastal quay paving, physical coverage 3 metres square. Perfectly flat orthographic view of old rectangular gray-brown limestone flagstones in irregular staggered courses, restrained 3-to-6 cm shallow mortar joints filled with dark earth, small chipped corners, tiny pale sand grains and slight salt bloom, sparse dark olive moss in a few crevices. Each flagstone roughly 40 to 80 cm long, masonry worn flat by rain and tide, a detailed grounded cinematic abandoned city material. Neutral diffuse colors in medium cool slate gray and warm stone, no glossy reflections, no puddles painted in, no shadows, no directional illumination, no perspective, no plants above the surface, no objects, no lettering or symbols, no frame. Seamlessly tileable across all four edges, one material only, high resolution.",
+      "size": [
+        1254,
+        1254
+      ],
+      "sha256": "36e4041292d312c9802eb11a3ee3e2161c0183b2f8decf7516df876d2497d0ca"
+    },
+    {
+      "key": "city_plaster_normal",
+      "prompt": "Use case: precise-object-edit. Technical game material conversion. Convert the attached albedo surface image into a matching tangent-space OpenGL +Y NORMAL MAP for native Godot StandardMaterial3D. Preserve every plaster edge / stone outline / crevice in exactly the same image coordinates, preserve the full square framing and seamless repeat. Encode ONLY RGB normal-vector data, flat surface = (128,128,255), dominant pale blue-purple, shallow realistic relief. Plaster faces are almost flat, shallow peeling edges and fine granular relief, no tall bumps. No original diffuse colors, no illumination, no text, no legend, no border, no extra objects. Same square pixel dimensions as reference. This is a technical normal map, not a shaded illustration.",
+      "source": "/Users/xiyu/.codex/generated_images/01a1264f-63e1-7a51-9f33-c3ff88ba8a25/exec-762fee2a-d03c-4898-9328-3fe832131243.png",
+      "reference": "/Users/xiyu/.codex/generated_images/01a1264f-63e1-7a51-9f33-c3ff88ba8a25/exec-67d2b3c8-ea59-4659-b464-e5384e9bc9f1.png",
+      "file": "city_plaster_normal.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "sha256": "911ab03591d5899bf1e797f91bb84a7cc06c7d40bf7664235d85ca485667e6bd"
+    },
+    {
+      "key": "city_plaster_roughness",
+      "prompt": "Use case: precise-object-edit. Technical game material conversion. Convert the attached albedo surface image into a matching neutral grayscale ROUGHNESS MAP for native Godot StandardMaterial3D. Preserve the exact locations of every edge, seam and weathered patch. Output only scalar grayscale data, all RGB channels identical, black=0 smooth, white=1 rough. Dry peeling salt plaster mostly 0.80-0.94, faint lower roughness 0.65-0.78 in old damp runoff streaks, no black crevices. No illumination, no diffuse colors, no normal-map blue, no raised shaded relief, no text, no legend, no border. Same square composition and pixel dimensions as the input, continuous repeat across edges.",
+      "source": "/Users/xiyu/.codex/generated_images/01a1264f-63e1-7a51-9f33-c3ff88ba8a25/exec-b7f035a1-5d4f-4d29-b73a-457e1630508a.png",
+      "reference": "/Users/xiyu/.codex/generated_images/01a1264f-63e1-7a51-9f33-c3ff88ba8a25/exec-67d2b3c8-ea59-4659-b464-e5384e9bc9f1.png",
+      "file": "city_plaster_roughness.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "sha256": "9d8b24c1ff3b5335f06f64ec38d634f47c0696912ff6db7cb9c7437ed862e83c"
+    },
+    {
+      "key": "quay_stone_normal",
+      "prompt": "Use case: precise-object-edit. Technical game material conversion. Convert the attached albedo surface image into a matching tangent-space OpenGL +Y NORMAL MAP for native Godot StandardMaterial3D. Preserve every plaster edge / stone outline / crevice in exactly the same image coordinates, preserve the full square framing and seamless repeat. Encode ONLY RGB normal-vector data, flat surface = (128,128,255), dominant pale blue-purple, shallow realistic relief. Flagstones are almost flat with softly rounded chipped edges, only recessed mortar seams, no tall displacement. No original diffuse colors, no illumination, no text, no legend, no border, no extra objects. Same square pixel dimensions as reference. This is a technical normal map, not a shaded illustration.",
+      "source": "/Users/xiyu/.codex/generated_images/01a1264f-63e1-7a51-9f33-c3ff88ba8a25/exec-fcb5b88d-03bd-4f1c-b6fd-3402d99b1b69.png",
+      "reference": "/Users/xiyu/.codex/generated_images/01a1264f-63e1-7a51-9f33-c3ff88ba8a25/exec-93377a45-2fac-4da8-9568-e9dacb5cf326.png",
+      "file": "quay_stone_normal.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "sha256": "b29875b16920fc9f517ad97214629df1a98602b980cb117fced8a35e27617c79"
+    },
+    {
+      "key": "quay_stone_roughness",
+      "prompt": "Use case: precise-object-edit. Technical game material conversion. Convert the attached albedo surface image into a matching neutral grayscale ROUGHNESS MAP for native Godot StandardMaterial3D. Preserve the exact locations of every edge, seam and weathered patch. Output only scalar grayscale data, all RGB channels identical, black=0 smooth, white=1 rough. Weathered stone faces medium-high roughness 0.68-0.86, seams higher 0.90-0.96; subtle smooth worn spots, no solid black seams or shiny puddles. No illumination, no diffuse colors, no normal-map blue, no raised shaded relief, no text, no legend, no border. Same square composition and pixel dimensions as the input, continuous repeat across edges.",
+      "source": "/Users/xiyu/.codex/generated_images/01a1264f-63e1-7a51-9f33-c3ff88ba8a25/exec-ae4d1774-8878-44ee-b7bc-98a74b29ecea.png",
+      "reference": "/Users/xiyu/.codex/generated_images/01a1264f-63e1-7a51-9f33-c3ff88ba8a25/exec-93377a45-2fac-4da8-9568-e9dacb5cf326.png",
+      "file": "quay_stone_roughness.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "sha256": "e419b1062cbc819b52b67eab17aa9aa554e4c4362028e3e0f7b0258e329b92f8"
+    }
+  ]
+}

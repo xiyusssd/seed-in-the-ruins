@@ -1,0 +1,43 @@
+{
+  "version": "1.9.1",
+  "tool": "built-in image_gen.imagegen",
+  "assets": [
+    {
+      "file": "terracotta_albedo.png",
+      "source": "/Users/xiyu/.codex/generated_images/01a1264f-63e1-7a51-9f33-c3ff88ba8a25/exec-abca9194-a776-451d-b7de-2a41af7dd5b5.png",
+      "prompt": "Use case: game-surface-texture. Create a seamless square physically based ALBEDO / BASE COLOR texture of an abandoned Mediterranean greenhouse terracotta pot surface. A close orthographic flat view of the material itself, no pot silhouette or object. Fired warm muted reddish-brown clay, chalky ivory mineral efflorescence and fine pale salt run-off streaks, subtle dark humid smudges, scattered small olive green moss/lichen colonies, granular porous ceramic, softly chipped superficial spots. Realistic photographic microdetail but very low contrast, natural unlit base color data with no directional lighting, no shadows, no specular reflections, no baked ambient occlusion. Sparse moss covers about 12 percent, pale salts about 16 percent, main clay remains readable and varied. Tileable at all four edges, uniform detail density, no compositional focal point, no text, labels, borders, watermark, surrounding plants, or props. This is a production game texture, NOT a finished scene or shaded material ball.",
+      "referenced_images": [],
+      "sha256": "e493c8bdb507ff61c3b80545493c3bd13f234bc2e9f7d81649d086a7a1e4e5d6",
+      "size": [
+        1254,
+        1254
+      ]
+    },
+    {
+      "file": "terracotta_normal.png",
+      "source": "/Users/xiyu/.codex/generated_images/01a1264f-63e1-7a51-9f33-c3ff88ba8a25/exec-a5865c6a-b61c-4f53-b535-c52b8a03686a.png",
+      "prompt": "Use case: game-surface-texture. Convert the supplied terracotta albedo reference into a seamless square production PBR TANGENT SPACE NORMAL MAP, OpenGL +Y convention. Match the exact feature positions and image framing of the reference: porous fired clay, shallow chipped grain, slightly raised salt crust, very shallow moss colonies. Use flat neutral (128,128,255) across most of the surface, subtle magenta/cyan microgradients with blue dominant everywhere, extremely shallow relief suitable for a 0.3 normal strength. No albedo colors, no lighting, shadows, occlusion, depth map, text or border. The output is the normal data map alone, same square dimensions as reference. Tileable on all four edges.",
+      "referenced_images": [
+        "/Users/xiyu/.codex/generated_images/01a1264f-63e1-7a51-9f33-c3ff88ba8a25/exec-abca9194-a776-451d-b7de-2a41af7dd5b5.png"
+      ],
+      "sha256": "bf7e94c1813cd3728dd85caf19474b2686b8c13b4b1b4f8d9b68300ada83ad38",
+      "size": [
+        1254,
+        1254
+      ]
+    },
+    {
+      "file": "terracotta_roughness.png",
+      "source": "/Users/xiyu/.codex/generated_images/01a1264f-63e1-7a51-9f33-c3ff88ba8a25/exec-caadb885-5868-45f8-ba68-349dea7e8a77.png",
+      "prompt": "Use case: game-surface-texture. Convert the supplied terracotta albedo reference into a seamless square production PBR ROUGHNESS DATA MAP. Match exact positions and framing of the supplied reference. Neutral grayscale only, linear roughness values: main porous clay about 0.80, pale chalky salt about 0.90, small moss patches about 0.87, sparse humid stains about 0.66. Smooth low-contrast variation, no black polished patches. No albedo color, normal map, illumination, directional shadow, reflections, text, border or material-ball rendering. Output only the seamless square roughness map, same dimensions as reference. Tileable on all four edges.",
+      "referenced_images": [
+        "/Users/xiyu/.codex/generated_images/01a1264f-63e1-7a51-9f33-c3ff88ba8a25/exec-abca9194-a776-451d-b7de-2a41af7dd5b5.png"
+      ],
+      "sha256": "6040de7ae34ffbb57a71b8ee5511dab1103f15e618dcfa7bbd07e489e59b5ebd",
+      "size": [
+        1254,
+        1254
+      ]
+    }
+  ]
+}

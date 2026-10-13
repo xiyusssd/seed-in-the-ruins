@@ -1,0 +1,132 @@
+[gd_scene load_steps=12 format=3]
+[ext_resource type="Script" path="res://scripts/robot_companion.gd" id="1"]
+[sub_resource type="StandardMaterial3D" id="Shell"]
+albedo_color = Color(0.7,0.73,0.66,1)
+metallic = 0.38
+roughness = 0.62
+[sub_resource type="StandardMaterial3D" id="Dark"]
+albedo_color = Color(0.16,0.23,0.25,1)
+roughness = 0.86
+[sub_resource type="StandardMaterial3D" id="Lens"]
+albedo_color = Color(0.64,0.81,0.75,1)
+emission_enabled = true
+emission = Color(0.25,0.45,0.38,1)
+emission_energy_multiplier = 0.4
+[sub_resource type="StandardMaterial3D" id="Brass"]
+albedo_color = Color(0.66,0.52,0.3,1)
+metallic = 0.5
+roughness = 0.5
+[sub_resource type="BoxMesh" id="BodyMesh"]
+size = Vector3(0.65,0.49,0.46)
+[sub_resource type="BoxMesh" id="TrackMesh"]
+size = Vector3(0.17,0.2,0.63)
+[sub_resource type="CylinderMesh" id="HeadMesh"]
+top_radius = 0.16
+bottom_radius = 0.18
+height = 0.28
+radial_segments = 24
+[sub_resource type="SphereMesh" id="LensMesh"]
+radius = 0.125
+height = 0.25
+[sub_resource type="BoxMesh" id="CargoMesh"]
+size = Vector3(0.26,0.28,0.2)
+[sub_resource type="CylinderMesh" id="ArmMesh"]
+top_radius = 0.035
+bottom_radius = 0.05
+height = 0.36
+[node name="Yaya" type="Node3D"]
+script = ExtResource("1")
+[node name="Body" type="MeshInstance3D" parent="."]
+position = Vector3(0,0.48,0)
+mesh = SubResource("BodyMesh")
+material_override = SubResource("Shell")
+[node name="TrackLeft" type="MeshInstance3D" parent="."]
+position = Vector3(-0.31,0.16,0)
+mesh = SubResource("TrackMesh")
+material_override = SubResource("Dark")
+[node name="TrackRight" type="MeshInstance3D" parent="."]
+position = Vector3(0.31,0.16,0)
+mesh = SubResource("TrackMesh")
+material_override = SubResource("Dark")
+[node name="HeadPivot" type="Node3D" parent="."]
+position = Vector3(0,0.87,0.07)
+[node name="Head" type="MeshInstance3D" parent="HeadPivot"]
+rotation = Vector3(1.5708,0,0)
+mesh = SubResource("HeadMesh")
+material_override = SubResource("Shell")
+[node name="Eye" type="MeshInstance3D" parent="HeadPivot"]
+position = Vector3(0,0,0.16)
+scale = Vector3(1,1,0.35)
+mesh = SubResource("LensMesh")
+material_override = SubResource("Lens")
+[node name="ArmPivot" type="Node3D" parent="."]
+position = Vector3(0.37,0.58,0.12)
+[node name="Arm" type="MeshInstance3D" parent="ArmPivot"]
+position = Vector3(0,-0.12,0)
+mesh = SubResource("ArmMesh")
+material_override = SubResource("Brass")
+[node name="Gripper" type="MeshInstance3D" parent="ArmPivot"]
+position = Vector3(0,-0.3,0)
+scale = Vector3(0.5,0.4,0.6)
+mesh = SubResource("LensMesh")
+material_override = SubResource("Dark")
+[node name="Cargo" type="MeshInstance3D" parent="."]
+position = Vector3(0,0.56,-0.32)
+mesh = SubResource("CargoMesh")
+material_override = SubResource("Brass")
+[node name="Roller00" type="MeshInstance3D" parent="."]
+position = Vector3(-0.404,0.17,-0.2)
+rotation = Vector3(0,0,1.5708)
+scale = Vector3(0.46,0.12,0.46)
+mesh = SubResource("HeadMesh")
+material_override = SubResource("Brass")
+[node name="Roller01" type="MeshInstance3D" parent="."]
+position = Vector3(-0.404,0.17,0.0)
+rotation = Vector3(0,0,1.5708)
+scale = Vector3(0.46,0.12,0.46)
+mesh = SubResource("HeadMesh")
+material_override = SubResource("Brass")
+[node name="Roller02" type="MeshInstance3D" parent="."]
+position = Vector3(-0.404,0.17,0.2)
+rotation = Vector3(0,0,1.5708)
+scale = Vector3(0.46,0.12,0.46)
+mesh = SubResource("HeadMesh")
+material_override = SubResource("Brass")
+[node name="Roller20" type="MeshInstance3D" parent="."]
+position = Vector3(0.404,0.17,-0.2)
+rotation = Vector3(0,0,1.5708)
+scale = Vector3(0.46,0.12,0.46)
+mesh = SubResource("HeadMesh")
+material_override = SubResource("Brass")
+[node name="Roller21" type="MeshInstance3D" parent="."]
+position = Vector3(0.404,0.17,0.0)
+rotation = Vector3(0,0,1.5708)
+scale = Vector3(0.46,0.12,0.46)
+mesh = SubResource("HeadMesh")
+material_override = SubResource("Brass")
+[node name="Roller22" type="MeshInstance3D" parent="."]
+position = Vector3(0.404,0.17,0.2)
+rotation = Vector3(0,0,1.5708)
+scale = Vector3(0.46,0.12,0.46)
+mesh = SubResource("HeadMesh")
+material_override = SubResource("Brass")
+[node name="FrontSeam0" type="MeshInstance3D" parent="."]
+position = Vector3(-0.16,0.48,0.238)
+scale = Vector3(0.03,0.42,0.014)
+mesh = SubResource("BodyMesh")
+material_override = SubResource("Dark")
+[node name="FrontSeam1" type="MeshInstance3D" parent="."]
+position = Vector3(0.0,0.48,0.238)
+scale = Vector3(0.03,0.42,0.014)
+mesh = SubResource("BodyMesh")
+material_override = SubResource("Dark")
+[node name="FrontSeam2" type="MeshInstance3D" parent="."]
+position = Vector3(0.16,0.48,0.238)
+scale = Vector3(0.03,0.42,0.014)
+mesh = SubResource("BodyMesh")
+material_override = SubResource("Dark")
+[node name="SeedBox" type="MeshInstance3D" parent="."]
+position = Vector3(0,0.66,-0.265)
+scale = Vector3(0.7,0.55,0.55)
+mesh = SubResource("CargoMesh")
+material_override = SubResource("Shell")

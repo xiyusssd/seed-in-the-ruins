@@ -1,0 +1,26 @@
+[
+  {
+    "asset": "tree_small_02",
+    "surface": 0,
+    "before_triangles": 94814,
+    "after_triangles": 40526
+  },
+  {
+    "asset": "tree_small_02",
+    "surface": 1,
+    "before_triangles": 1939380,
+    "after_triangles": 256923
+  },
+  {
+    "asset": "tree_small_02",
+    "surface": 2,
+    "before_triangles": 28293,
+    "after_triangles": 13999
+  },
+  {
+    "asset": "coast_rocks_02",
+    "surface": 0,
+    "before_triangles": 1260423,
+    "after_triangles": 45523
+  }
+]

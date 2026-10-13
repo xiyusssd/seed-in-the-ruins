@@ -1,0 +1,20 @@
+extends "res://tests/render_review.gd"
+func run():
+	Engine.max_fps=10
+	Journey.save_path="user://isolated-city-review.json";Journey.fresh()
+	garden=load("res://garden.tscn").instantiate();add_child(garden)
+	await chapter(0);colour(1)
+	await shot("city-01-town",Vector3(-12,12,26),Vector3(-43,12,-26))
+	await shot("city-02-quay",Vector3(11,3.1,10),Vector3(7,1.8,-3))
+	await shot("city-03-pump",Vector3(14,14,21),Vector3(-2,3,-4))
+	await chapter(1);colour(1)
+	await shot("city-04-greenhouse",Vector3(-5,10,-9),Vector3(1,9,0))
+	await shot("city-05-greenhouse-ground",Vector3(-8,3.1,-6.8),Vector3(-3,2.2,-2.5))
+	await shot("city-07-potting-bench",Vector3(-5.0,3.2,-.7),Vector3(-7,2.6,-2.7))
+	await shot("city-08-fern-close",Vector3(-5.9,2.9,-1.4),Vector3(-6.6,2.8,-2.7))
+	await chapter(0);colour(1)
+	await shot("city-09-jetty",Vector3(20,4.0,12),Vector3(15.5,1.3,7.1))
+	await shot("city-10-roof-damage",Vector3(-40,16,-59),Vector3(-37.3,11.5,-55.4))
+	await chapter(2);colour(1)
+	await shot("city-06-garden",Vector3(17,17,22),Vector3(0,5,-3))
+	get_tree().quit(0 if failures.is_empty() else 1)

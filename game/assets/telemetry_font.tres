@@ -1,0 +1,6 @@
+[gd_resource type="FontVariation" load_steps=3 format=3]
+[ext_resource type="FontFile" path="res://assets/ShareTechMono-Regular.ttf" id="1"]
+[ext_resource type="FontVariation" path="res://assets/body_font.tres" id="2"]
+[resource]
+base_font = ExtResource("1")
+fallbacks = Array[Font]([ExtResource("2")])

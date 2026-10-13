@@ -1,0 +1,13 @@
+.tools/
+game/.godot/
+builds/
+backend/.venv/
+backend/__pycache__/
+.env
+.env.*
+!.env.example
+*.log
+.DS_Store
+__pycache__/
+*.pyc
+/models/
